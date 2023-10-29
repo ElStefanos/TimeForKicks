@@ -27,6 +27,9 @@ $userInfo = $userInfo->getInfo();
             <i class="fa-solid fa-filter"></i><a href="<?php $assets->getPageLink("filters"); ?>">Products</a>
         </div>
         <div class="menu-nav-item">
+            <i class="fa-solid fa-boxes-stacked"></i><a href="<?php $assets->getPageLink("stocks"); ?>">Stock checker</a>
+        </div>
+        <div class="menu-nav-item">
             <i class="fa-solid fa-link"></i><a href="<?php $assets->getPageLink("webhooks"); ?>">WebHooks</a>
         </div>
         <div class="menu-nav-item">
