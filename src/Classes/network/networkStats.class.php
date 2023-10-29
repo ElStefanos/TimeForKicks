@@ -63,6 +63,9 @@ class networkStats
     {   
         $date = date('Y-m-d');
         $this->result = $this->db->grabResultsTable('kicks_networking_daily_stats', "WHERE `date` = '$date'");
+
+        if(empty($this->result)) return; 
+
         $this->totalEstimatedBandwith = $this->result[0]['bandwith'];
         $this->totalEstimatedBandwith = round($this->totalEstimatedBandwith / pow(1024, 3), 2)."GB";
         $this->successfullRequests = $this->result[0]['successes'];
@@ -73,6 +76,9 @@ class networkStats
     public function dailyStatsOverall()
     {
         $this->result = $this->db->grabResultsTable('kicks_networking_daily_stats');
+
+        if(empty($this->result)) return; 
+
         foreach ($this->result as $key => $value) {
             $stats[$value['date']] = $value;
         }
