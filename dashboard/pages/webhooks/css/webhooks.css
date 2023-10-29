@@ -1,0 +1,63 @@
+.module {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 35px;
+    margin: 20px;
+    height: 100%;
+}
+
+.module:nth-child(1) {
+    height: 230px;
+}
+
+.form-hook {
+    border-radius: 10px;
+    background-image: linear-gradient(to top, #48c6ef 2%, #6f86d6 100%);
+    -webkit-box-shadow: 10px 10px 23px 1px rgba(0, 0, 0, 0.42);
+    -moz-box-shadow: 10px 10px 23px 1px rgba(0, 0, 0, 0.42);
+    box-shadow: 10px 10px 23px 1px rgba(0, 0, 0, 0.42);
+    color: #ffffff;
+    display: grid;
+    font-family: 'Roboto', sans-serif;
+    grid-template-rows: repeat(3, 40px);
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+    width: 420px;
+    height: auto;
+    padding: 10px;
+    font-weight: 600;
+}
+
+.form-hook h4 {
+    font-size: 20px;
+}
+
+.form-hook input {
+    width: 90%;
+    height: 30px;
+    border: none;
+    background: white;
+    border-radius: 5px;
+    padding: 5px 20px;
+}
+
+.form-hook button {
+    border: none;
+    background: white;
+    color: #144272;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+.form-hook select {
+    height: 30px;
+    border: none;
+    background: white;
+    border-radius: 5px;
+    padding: 5px 20px;
+    margin: 20px;
+}
+

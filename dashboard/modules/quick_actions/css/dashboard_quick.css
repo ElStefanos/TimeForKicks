@@ -1,0 +1,134 @@
+.quick-actions-container {
+    background: #2b6ab7;
+    height: 50vh;
+    width: 25%;
+    position: absolute;
+    z-index: 3;
+    right: 120px;
+    top: 50px;
+    border-radius: 15px;
+    transition: 0.5s ease all;
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: 100%;
+    justify-content: center;
+    padding: 5px;
+    cursor: default;
+}
+
+.quick-actions-container.hidden {
+    display: none;
+}
+
+.quick-actions-container:after, .quick-actions-container:before {
+	bottom: 100%;
+	left: 87%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+    display: block;
+}
+
+.quick-actions-container:after {
+	border-color: rgba(238, 238, 238, 0);
+	border-bottom-color: #2b6ab7;
+	border-width: 15px;
+	margin-left: -15px;
+}
+.quick-actions-container:before {
+	border-color: rgba(204, 204, 204, 0);
+	border-bottom-color: #2b6ab7;
+	border-width: 16px;
+	margin-left: -16px;
+}
+
+.quick-container {
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.quick-item {
+    height: 200px;
+    width: 100%;
+    color: #ffffff;
+}
+
+
+.quick-item h4 {
+    font-family: 'Roboto', sans-serif;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+.quick-item .form {
+    color: #ffffff;
+    display: grid;
+    font-family: 'Roboto', sans-serif;
+    grid-template-rows: repeat(3, 40px);
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+}
+
+.quick-item .form .form-item i:hover {
+    color: #fff;
+}
+
+
+.quick-item .form input {
+    width: 90%;
+    height: 30px;
+    border: none;
+    background: white;
+    
+}
+
+.quick-item .form select {
+    height: 30px;
+    border: none;
+    background: white;
+}
+
+.quick-item .form option {
+    height: 30px;
+    border: none;
+    background: white;
+}
+
+.quick-item .form button {
+    border: none;
+    background: white;
+    color: #144272;
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+@media only screen and (max-width: 950px){
+    
+    .quick-actions-container.hidden {
+        transition: 0.5s;
+        display: grid;
+        right: -100%;
+    }
+    
+    .quick-actions-container {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        right: 0;
+        top: 40px;
+        padding: 0;
+        border-radius: 0;
+    }
+    .quick-actions-container:after, .quick-actions-container:before {
+        display: none;
+    }
+}
+
+

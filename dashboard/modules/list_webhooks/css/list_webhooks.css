@@ -1,0 +1,48 @@
+.container {
+    background: #00b09b;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #96c93d, #00b09b);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #96c93d, #00b09b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    -webkit-box-shadow: 10px 10px 23px 1px rgba(0, 0, 0, 0.42);
+    -moz-box-shadow: 10px 10px 23px 1px rgba(0, 0, 0, 0.42);
+    box-shadow: 10px 10px 23px 1px rgba(0, 0, 0, 0.42);
+    width: 350px;
+    height: 180px;
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+.container p {
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    white-space: nowrap;
+}
+
+.container .actions {
+    display: grid;
+    grid-template-rows: 25px;
+    grid-template-columns: 20px 20px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.container .actions a {
+    color: #fff;
+    font-size: 20px;
+    transition: 0.3s ease all;
+}
+
+.container .actions a:nth-child(1) {
+    color: #c11325;
+}
+
+.container .actions a:hover {
+    color: #fff;
+    font-size: 25px;
+}
+

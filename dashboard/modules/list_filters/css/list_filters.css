@@ -1,0 +1,31 @@
+table {
+    border-radius: 1px solid black;
+    width: 90% !important;
+    margin: 10px 5%;
+}
+table tr {
+    text-align: center;
+}
+table tr:nth-child(even) {
+    background: #65a961;
+    color: #ffffff;
+}
+
+table tr:nth-child(odd) {
+    background: #2b6ab7;
+    color: #ffffff;
+}
+
+table td:nth-child(6) {
+    text-align: left;
+    padding: 0px 10px;
+}
+
+table tr i {
+    color: #ffffff;
+    font-size: 20px;
+}
+
+table tr i:hover {
+    color: #f44336;
+}

@@ -1,0 +1,122 @@
+.menu-header {
+    width: 100vw;
+    height: 40px;
+    background: #F1F3F5;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-content: start;
+    align-items: center;
+}
+
+.menu-header h3 {
+    margin: 0 10px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.hamburger-menu {
+    display: none;
+}
+
+.menu-header-wrapper {
+    display: grid;
+    grid-template-rows: 100%;
+    grid-auto-flow: column;
+    justify-content: end;
+    align-items: center;
+    gap: 40px;
+    margin: 0 40px;
+}
+
+.menu-header-item {
+    color: #474747;
+    cursor: pointer;
+    transition: 0.5s ease all;
+}
+
+.menu-header-item i:hover {
+    color: #2B6AB7;
+}
+
+.menu-header-item a {
+    width: 10px;
+    color: #474747;
+    text-decoration: none;
+    transition: 0.5s ease all;
+}
+
+.menu-header-item a:hover {
+    color: #2B6AB7;
+}
+
+.menu-header-item #notifications-indicator {
+    font-size: 10px;
+    color: #ffffff;
+    background: #F44336;
+    border-radius: 50%;
+    width: 13px;
+    height: 13px;
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 90px;
+    z-index: 0;
+    text-align: center;
+}
+
+@media only screen and (max-width: 950px) {
+    .menu-header h3 {
+        display: none;
+    }
+    
+    .hamburger-menu {
+        display: block;
+        cursor: pointer;
+        width: 25px;
+    }
+    
+    .hamburger-menu span {
+        display: block;
+        width: 25px;
+        height: 2px;
+        margin: 5px;
+        background: #1a1a1a;
+        transition: 0.5s ease all;
+    }
+    
+    .hamburger-menu.active span {
+        height: 1px;
+    }
+    
+    .hamburger-menu.active span:nth-child(1) {
+        transform: rotate(-30deg) translateY(3px);
+        width: 15px;
+    }
+    
+    .hamburger-menu.active span:nth-child(2) {
+        width: 30px;
+        transform: translateX(4px);
+    }
+    
+    .hamburger-menu.active span:nth-child(3) {
+        transform: rotate(30deg) translateY(-3px);
+        width: 15px;
+    }
+    
+    .menu-header {
+        position: fixed;
+    }
+    
+    .menu-header-wrapper {
+        gap: 15px;
+        margin: 0 10px;
+    }
+    
+    .menu-header-item #notifications-indicator {
+    top: 20px;
+    right: 35px;
+    }
+    
+}
+
+

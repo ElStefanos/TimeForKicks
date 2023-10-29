@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@300&display=swap');
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background: #F1F3F5;
+}
+
+.home {
+    max-height: 95vh;
+    display: grid;
+    grid-template-columns: 150px auto;
+    grid-template-rows: 100%;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+.page {
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    height: 95vh;
+    overflow-y: scroll !important;
+}
+
+.ajax-response {
+    padding: 5px 10px;
+    color: #fff;
+    font-size: 17px;
+    font-family: 'Verdana', sans-serif;
+    font-weight: 600;
+    border-radius: 10px;
+    background: #3AB18D;
+    min-height: 50px;
+    display: none;
+    grid-template-rows: 100%;
+    grid-template-columns: 20px auto;
+    align-items: center;
+    position: fixed;
+    z-index: 5;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%);
+    -webkit-box-shadow: 10px 10px 23px 1px rgba(0, 0, 0, 0.42);
+    -moz-box-shadow: 10px 10px 23px 1px rgba(0, 0, 0, 0.42);
+    box-shadow: 10px 10px 23px 1px rgba(0, 0, 0, 0.42);
+}
+
+.ajax-response p{
+    margin: 0 10px;
+}
+
+.ajax-response.success {
+    display: inline-grid;
+    margin: 0 auto;
+}
+
+.ajax-response.error {
+    background: #F44336;
+    display: inline-grid;
+}
+
+.ajax-response.narrowing {
+    display: flex;
+    color: #1a1a1a;
+    background: #fff;
+    left: 40%;
+    width: 410px;
+    height: 350px;
+}
+
+.ajax-response.narrowing h1 {
+    font-size: 20px;
+}
+
+.ajax-response.narrowing form{
+    width: 90%;
+
+    margin: 0 1%;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 90px;
+    grid-auto-flow: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.ajax-response.narrowing form input {
+    margin: 10px;
+}
+
+.ajax-response.narrowing form input[type=text]{
+    height: 40px;
+    width: 100%;
+}
+
+.ajax-response.narrowing form button{
+    border: none;
+    padding: 10px;
+    margin: 10px;
+}
+
+
+.ajax-response.narrowing label {
+    font-size: 10px;
+}
+
+
+.ajax-response.narrowing p{
+    font-size: 10px;
+}
+
+
+@media only screen and (max-width: 950px) {
+    .home {
+        display: block;
+        min-height: 100vh;
+        max-height: none;
+    }
+    
+    .page {
+        display: block;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        min-height: 95vh;
+        border-radius: 0;
+        padding-top: 40px;
+    }
+}

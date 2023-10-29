@@ -1,0 +1,133 @@
+.overview {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px;
+    gap: 10px;
+}
+
+.container {
+    padding: 10px;
+    background: #fff;
+    border-radius: 10px;
+    -webkit-box-shadow: 10px 10px 23px 1px rgba(0, 0, 0, 0.42);
+    -moz-box-shadow: 10px 10px 23px 1px rgba(0, 0, 0, 0.42);
+    box-shadow: 10px 10px 23px 1px rgba(0, 0, 0, 0.42);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    overflow-y: auto;
+}
+
+.stat-item {
+    background: #FF4E50;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #F9D423, #FF4E50);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #F9D423, #FF4E50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    width: 150px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.proxies {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 40px 0;
+    padding: 10px;
+}
+
+.proxy-list {
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    -webkit-box-shadow: 10px 10px 23px 1px rgba(0, 0, 0, 0.42);
+    -moz-box-shadow: 10px 10px 23px 1px rgba(0, 0, 0, 0.42);
+    box-shadow: 10px 10px 23px 1px rgba(0, 0, 0, 0.42);
+}
+
+.proxy-list .proxy {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 25%;
+    grid-auto-flow: column;
+    gap: 10px;
+    font-size: 15px;
+    text-align: center;
+    align-items: center;
+}
+
+.proxy-list .proxy a{
+    margin:  0;
+    padding: 0;
+    color: #C11325;
+}
+
+.proxies .add-proxy {
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    -webkit-box-shadow: 10px 10px 23px 1px rgba(0, 0, 0, 0.42);
+    -moz-box-shadow: 10px 10px 23px 1px rgba(0, 0, 0, 0.42);
+    box-shadow: 10px 10px 23px 1px rgba(0, 0, 0, 0.42);
+    padding: 30px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    place-content: center;
+    gap: 20px;
+}
+
+.proxies .add-proxy input {
+    width: 300px;
+    height: 50px;
+    border: none;
+    background: #f2f2f2;
+    padding: 0 5px;
+    border-radius: 10px;
+}
+
+.proxies .add-proxy button {
+    width: 150px;
+    height: 50px;
+    background: #FD6D45;
+    color: #fff;
+    padding: 0 5px;
+    border: #fff 1px solid;
+    transition: 0.3s ease all;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.proxies .add-proxy button:hover {
+    width: 150px;
+    height: 50px;
+    background: #fff;
+    color: #FD6D45;
+    padding: 0 5px;
+    border: #FD6D45 1px solid;
+}
+
+.graph {
+    margin: 40px 0 0 0;
+    width: 100%;
+    min-height: 410px;
+    padding: 10px 0;
+    background: #fff;
+    text-align: center;
+    border-radius: 10px;
+    -webkit-box-shadow: 10px 10px 23px 1px rgba(0, 0, 0, 0.42);
+    -moz-box-shadow: 10px 10px 23px 1px rgba(0, 0, 0, 0.42);
+    box-shadow: 10px 10px 23px 1px rgba(0, 0, 0, 0.42);
+}
+
+#bandwithGraph {
+    height: 350px;
+    width: 100%;
+}
+
