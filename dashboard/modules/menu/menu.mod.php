@@ -13,7 +13,9 @@ $page = $page->returnPage();
 $assets = new getAssets;
 $userInfo = new getUserInfo;
 $userInfo = $userInfo->getInfo();
-?><script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+?>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"
+    integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="<?php $assets->getAssetsLink("/dashboard/modules/menu/css/menu.css"); ?>">
 <div class="menu-container">
     <div class="menu-nav-container">
@@ -27,7 +29,7 @@ $userInfo = $userInfo->getInfo();
             <i class="fa-solid fa-filter"></i><a href="<?php $assets->getPageLink("filters"); ?>">Products</a>
         </div>
         <div class="menu-nav-item">
-            <i class="fa-solid fa-boxes-stacked"></i><a href="<?php $assets->getPageLink("stocks"); ?>">Stock checker</a>
+            <i class="fa-solid fa-box"></i><a href="<?php $assets->getPageLink("monitor"); ?>">Monitor</a>
         </div>
         <div class="menu-nav-item">
             <i class="fa-solid fa-link"></i><a href="<?php $assets->getPageLink("webhooks"); ?>">WebHooks</a>
@@ -41,7 +43,7 @@ $userInfo = $userInfo->getInfo();
     </div>
 </div>
 <script type="text/javascript">
-    $('.menu-nav-item').each(function(index) {
+    $('.menu-nav-item').each(function (index) {
         var menu_link = $(this).children('a').attr('href');
         if ("<?php echo $page ?>" == "<?php echo __URL__ . "dashboard?page=dashboard" ?>") {
             $('.menu-nav-item:first').addClass("current");

@@ -51,9 +51,9 @@
             }
         }
 
-        public function insertTable($table, $values, $term)
+        public function insertTable($table, $fields, $values)
         {   
-            $this->mysqli->query("INSERT INTO $table $values VALUES $term");
+            $this->mysqli->query("INSERT INTO $table $fields VALUES $values");
         }
 
         public function deleteData($table, $term = "") {
