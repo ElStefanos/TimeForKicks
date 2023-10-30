@@ -158,7 +158,7 @@ CREATE TABLE `kicks_notifications` (
 -- Table structure for table `kicks_stocks`
 --
 
-CREATE TABLE `kicks_stocks` (
+CREATE TABLE `kicks_monitor` (
   `id` int(255) NOT NULL,
   `site` varchar(255) NOT NULL,
   `link` varchar(255) NOT NULL,
@@ -241,7 +241,7 @@ ALTER TABLE `kicks_notifications`
 --
 -- Indexes for table `kicks_stocks`
 --
-ALTER TABLE `kicks_stocks`
+ALTER TABLE `kicks_monitor`
   ADD PRIMARY KEY (`id`);
 
 --
