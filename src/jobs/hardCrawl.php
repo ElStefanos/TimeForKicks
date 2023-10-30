@@ -182,18 +182,24 @@ foreach ($results as $key => $value) {
         }
     }
 
+    var_dump($found);
+
     if (count($found) > 0) {
         $found = array_map('array_filter', $found);
         $found = array_filter($found);
         $found = array_values($found);
 
 
-        foreach ($found as $key) {
-
-            $webHook = new webhookDiscord($key);
-
-            $webHook->sendHook();
-            $webHook->sendHookSite($baseUrl);
+        foreach ($found as $key => $value) {
+                foreach($value as $link) {
+                    $priceSearch = new webpageScraper($link);
+                    $priceSearch = $priceSearch->getPrice();
+        
+                    $webHook = new webhookDiscord($link, $priceSearch);
+        
+                    $webHook->sendHook();
+                    $webHook->sendHookSite($baseUrl);
+                }
         }
 
         print_r($found);
