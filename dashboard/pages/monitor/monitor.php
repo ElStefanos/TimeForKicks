@@ -48,7 +48,7 @@ $monitored = $mysqli->grabResultsTable("kicks_monitor");
         <div class="product">
             <h4 class="item"><?php echo $value['site'] ?></h4>
             <a class="item" href="<?php echo $value['link'] ?>" target="_blank"><?php echo $value['link'] ?></a>
-            <h4 class="item actions">Actions</h4>
+            <h4 class="item actions"><a href="<?php echo __URL__ . '/dashboard/jobs/removeFromMonitor.php?id='.$value["id"]; ?>"><i class="fa-solid fa-trash"></i></a></h4>
         </div>
         <?php endforeach; ?>
     </div>

@@ -29,7 +29,7 @@ $userInfo = $userInfo->getInfo();
             <i class="fa-solid fa-filter"></i><a href="<?php $assets->getPageLink("filters"); ?>">Products</a>
         </div>
         <div class="menu-nav-item">
-            <i class="fa-solid fa-box"></i><a href="<?php $assets->getPageLink("monitor"); ?>">Monitor</a>
+            <i class="fa-solid fa-box"></i><a href="<?php $assets->getPageLink("monitor"); ?>">Stock monitor</a>
         </div>
         <div class="menu-nav-item">
             <i class="fa-solid fa-link"></i><a href="<?php $assets->getPageLink("webhooks"); ?>">WebHooks</a>

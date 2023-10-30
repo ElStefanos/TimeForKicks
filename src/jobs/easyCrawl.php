@@ -16,7 +16,7 @@ include __FUNCTIONS__ . 'autoloader.php';
 
 use dataBase\dataBase;
 
-use crawler\{robots, sitemap};
+use crawler\{robots, sitemap, webpageScraper};
 
 use caching\{loadCache, createCache};
 
@@ -80,17 +80,27 @@ foreach ($results as $key => $value) {
 
                 $searchFilter = new filterSearch($value['url'], $word);
 
-                $found =  $searchFilter->searchFilter();
+                $found = $searchFilter->searchFilter();
+
+                foreach($found as $link) {
+                    $scrapper = new webpageScraper($link);
+
+                    $priceGuess = $scrapper->getPrice();
+
+                    $priceGuess = str_replace(" ", "", $priceGuess);
+
+                    $webHook = new webhookDiscord($link, $priceGuess);
+
+                    $webHook->sendHook();
+                    $webHook->sendHookSite($baseUrl);
+                }
 
                 $writeCache->writeCache($found);
 
                 echo "Adding to cache " . $value['url'] . "\n";
             }
 
-            $webHook = new webhookDiscord($found);
 
-            $webHook->sendHook();
-            $webHook->sendHookSite($baseUrl);
         } else {
             echo "Skipping search for: " . $value['url'] . "\n";
         }
@@ -103,12 +113,18 @@ foreach ($results as $key => $value) {
 
         $searchFilter = new filterSearch($value['url'], $siteMapFetched);
 
-        $found =  $searchFilter->searchFilter();
+        $found = $searchFilter->searchFilter();
 
-        $webHook = new webhookDiscord($found);
+        
 
-        $webHook->sendHook();
-        $webHook->sendHookSite($baseUrl);
+        foreach($found as $link) {
+            $scrapper = new webpageScraper($link);
+            $priceGuess = $scrapper->getPrice();
+            if(empty($priceGuess)) $priceGuess = "N/A";
+            $webHook = new webhookDiscord($found, $priceGuess);
+            $webHook->sendHook();
+            $webHook->sendHookSite($baseUrl);
+        }
 
         if (is_array($found)) {
             $notify = new notifications;

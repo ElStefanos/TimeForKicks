@@ -69,10 +69,13 @@ class filterSearch
 
         foreach ($this->filter as $filtered) {
 
-            foreach ($this->link as $link) {
+            foreach ($this->link as $key => $link) {
 
                 $id = $filtered['id'];
                 $this->mysqli->insertTable('kicks_found_indexes', '(`filter_id`, `url`, `status`)', "('$id', '$link', '1')");
+
+                if(str_contains($link, "cdn")) unset($this->link[$key]);
+
             }
         }
 

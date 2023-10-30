@@ -25,18 +25,18 @@ echo "Started cache control job....\n";
 echo date('l jS \of F Y h:i:s A');
 echo "\n\nStarted cache control for hard sites....\n\n";
 
-cacheControl($hardSites, 86400);
+cacheControl($hardSites, 3600);
 
 echo "\nFinished cache control for hard sites....\n";
 
 echo "\nStarted cache control for medium sites....\n\n";
 
-cacheControl($mediumSites, 16100);
+cacheControl($mediumSites, 1800);
 
 echo "\nFinished cache control for medium sites....\n";
 echo "\nStarted cache control for easy sites....\n\n";
 
-cacheControl($easySites, 1800);
+cacheControl($easySites, 100);
 
 echo "\nFinished cache control for easy sites....\n\n";
 echo "Finished cache control job....\n";

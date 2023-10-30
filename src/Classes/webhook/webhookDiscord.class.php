@@ -11,14 +11,16 @@ class webhookDiscord
     protected array $hook;
     protected array $hooks;
     protected $payload;
+    protected string $price;
     protected $links;
     private object $mysqli;
 
     private $notifications;
 
-    public function __construct($links)
+    public function __construct($links, $priceEstm = "N/A")
     {
         $this->links = $links;
+        $this->price = $priceEstm;
         $this->mysqli = new dataBase;
         $this->hooks = $this->mysqli->grabResultsTable('kick_webhooks', "WHERE `type` = 'DISCORD' AND `status` = '1'");
         $this->notifications = new notifications;
@@ -27,7 +29,10 @@ class webhookDiscord
     private function buildPayload($link)
     {
         $this->payload = array(
-            "content" => "Here si a new relevant product! $link", "username" => "Time For Kicks!"
+            "content" => "
+            Price: $this->price
+            Here si a new relevant product! $link",
+            "username" => "Time For Kicks!"
         );
         return $this->payload;
     }
@@ -36,6 +41,25 @@ class webhookDiscord
     {  
         $this->hooks = $this->mysqli->grabResultsTable('kick_webhooks', "WHERE `site` = 'global' AND `status` = '1'");
         foreach($this->hooks as $this->hook) {
+
+
+            if(!is_array($this->links)) {
+
+                $this->payload = $this->buildPayload($this->links);
+                $headers = ['Content-Type: application/json; charset=utf-8'];
+                $ch = curl_init($this->hook['url']);
+                curl_setopt($ch, CURLOPT_URL, $this->hook['url']);
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($this->payload, JSON_FORCE_OBJECT));
+                $response = curl_exec($ch);
+                $this->notifications->sendNotification("New product!", $this->links, 1);
+
+                return;
+            }
+
             foreach ($this->links as $link) {
                 $this->payload = $this->buildPayload($link);
                 $headers = ['Content-Type: application/json; charset=utf-8'];
@@ -56,6 +80,22 @@ class webhookDiscord
     {  
         $this->hooks = $this->mysqli->grabResultsTable('kick_webhooks', "WHERE `site` = '$site' AND `status` = '1'");
         foreach($this->hooks as $this->hook) {
+
+            
+            if(!is_array($this->links)) {
+                $this->payload = $this->buildPayload($this->links);
+                $headers = ['Content-Type: application/json; charset=utf-8'];
+                $ch = curl_init($this->hook['url']);
+                curl_setopt($ch, CURLOPT_URL, $this->hook['url']);
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($this->payload, JSON_FORCE_OBJECT));
+                $response = curl_exec($ch);
+                return;
+            }
+
             foreach ($this->links as $link) {
                 $this->payload = $this->buildPayload($link);
                 $headers = ['Content-Type: application/json; charset=utf-8'];
