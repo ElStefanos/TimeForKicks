@@ -35,7 +35,7 @@ def very_co_uk_with_sizes_main_f(url):
     options.add_argument("--headless")
     # options.add_argument('--disable-dev-shm-usage')
 
-    browser = webdriver.Chrome('./chromedriver', options=options)
+    browser = webdriver.Chrome(executable_path='./chromedriver', options=options)
     browser.get(url)
     content = browser.page_source
     # dict_velicina = {}
