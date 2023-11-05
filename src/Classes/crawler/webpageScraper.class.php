@@ -4,20 +4,15 @@ namespace crawler;
 
 use DOMDocument;
 use network\network;
-use RecursiveArrayIterator;
-use RecursiveIteratorIterator;
-
-use filters\applyFilters;
 use filters\filterSearch;
 
 class webpageScraper
 {
     private string $url;
-    private array $headers;
-
+    public array $currencies;
     private $curl;
 
-    public function __construct($url, $id = '')
+    public function __construct(string $url, string $id = '')
     {
 
         $this->url = $url;
@@ -26,6 +21,9 @@ class webpageScraper
         if ($id != '') {
             $this->curl = new network($this->url, $id);
         }
+
+        $this->currencies = file(__ROOT__.DIRECTORY_SEPARATOR."currencies.txt");
+
     }
 
 
@@ -60,7 +58,7 @@ class webpageScraper
         return $content;
     }
 
-    public function webpageCrawler($baseURL)
+    public function webpageCrawler(string $baseURL) : array
     {
         $html = $this->curl->curlTarget();
         $dom = new DOMDocument();
@@ -81,40 +79,85 @@ class webpageScraper
         return $content;
     }
 
-    public function getPrice()
+    public function getPrice() : string
     {
         $html = $this->curl->curlTarget();
 
         $dom = new DOMDocument();
-        $content = array();
+        $content = "N\A";
+
+        $found = false;
+
         if (strlen(trim($html)) != 0) {
             @$dom->loadHTML($html);
 
-            $tags = array('p', 'span', 'div');
+            $tags = array('p', 'span', 'div', 'a');
 
             for($i = 0; $i <= 5; $i++) {
                 $tags[] = 'h'.$i;
             }
 
             foreach($tags as $tag => $value) {
+
                 foreach ($dom->getElementsByTagName($value) as $tag) {
-    
-                    if(str_contains($tag->getAttribute('class'), 'price')) {
-                        return $tag->textContent;
+
+                    if($tag->hasAttributes()) 
+                    {   
+                        foreach($tag->attributes as $attr) {
+                            if(str_contains($attr->nodeValue, "price")) {
+                                if(!str_contains($tag->textContent, "sale") && !str_contains($tag->textContent, "Sale")) {
+                                    $content = $tag->textContent;
+            
+                                    $found = true;
+            
+                                    break;
+                                }
+                            }
+                        }
+
+                        if($found) break;
+
+                    } else {
+
+                        foreach($this->currencies as $currency) {
+                            if(str_contains(strtolower($tag->textContent), strtolower($currency))) {
+
+                                $content = $tag->textContent;
+
+                                $found = true;
+                                break;
+                            }
+                        }
+
+                        if($found) break;
+
                     }
-    
+                    
                 }
+
+                if($found) break;
             }
+            
+
         }
-        return $content;
+
+        $pattern = '/[0-9.,]+/';
+
+        preg_match_all($pattern, $content, $matches);
+
+        $price = implode('', $matches[0]);
+
+        return $price;
     }
 
-    public function scrapeAndSearch($baseURL, $link)
-    {
+    public function scrapeAndSearch(string $baseURL) : array
+    {   
+
         $html = $this->curl->curlTarget();
 
         $dom = new DOMDocument();
-        $content = array();
+
+        $content = array(array());
         if (strlen(trim($html)) != 0) {
             @$dom->loadHTML($html);
 
@@ -129,8 +172,9 @@ class webpageScraper
 
                 $filter = array($a->textContent);
                 $filterSearch = new filterSearch($baseURL, $filter);
-                if ($filterSearch->searchFilterHard($link, $filter)) {
-                    $content[] = $link;
+                $test = $filterSearch->searchFilterHard($link, $filter);
+                if ($test != false) {
+                    $content[] = array('link' => $link, 'filter' => $test);
                 }
             }
         }

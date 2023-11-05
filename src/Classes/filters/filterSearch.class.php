@@ -118,7 +118,7 @@ class filterSearch
 
                     $id = $filtered['id'];
                     $this->mysqli->insertTable('kicks_found_indexes', '(`filter_id`, `url`, `status`)', "('$id', '$url', '1')");
-                    return true;
+                    return $filtered['filter'];
                 }
             }
         }

@@ -14,6 +14,6 @@ echo "<h2>Important</h2>";
 $notifications->getNotifications(2);
 echo "<h2>Notifications</h2>";
 $notifications->getNotifications(1, 20);
-echo "<h2>Opened</h2>";
+echo "<h2>Old Notifications</h2>";
 $notifications->getNotifications(0, 10);
 

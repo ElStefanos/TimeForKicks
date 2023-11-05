@@ -11,10 +11,6 @@ $admin->checkAdmin();
 
 use webhook\webhookDiscord;
 
-$payload = array("Test 1", "Test 2", "Test 3");
-
-
-
 
 if (!isset($_GET['id'])) {
     header("Location:".__URL__."/dashboard?page=webhooks&error=not_selected_webhook");
@@ -27,7 +23,7 @@ else {
 
 if (!empty($id)) {
     
-    $webhook = new webhookDiscord($payload);
+    $webhook = new webhookDiscord("https://test.com", "210,99$");
 
     $webhook->sendHookSite($id);
 

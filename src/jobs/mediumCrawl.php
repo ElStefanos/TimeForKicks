@@ -20,13 +20,7 @@ use dataBase\dataBase;
 
 use crawler\{robots, sitemap, webpageScraper};
 
-use caching\{loadCache, createCache};
-
-use filters\{applyFilters, filterSearch};
-
 use webhook\webhookDiscord;
-
-use events\{notifications, check};
 
 $dataBase = new dataBase;
 
@@ -43,134 +37,71 @@ foreach ($results as $key => $value) {
     }
 }
 
-
 echo "List of sites: \n\n";
 print_r($results);
 echo "\n\n";
 
-
 foreach ($results as $key => $value) {
+    
+    //Setting up for scrapping 
 
     $url = $value['url'];
     $baseURL = $url;
-
     $id = $value['id'];
     $startTime = microtime(true);
 
-    $specialSearch = $dataBase->grabResultsTable('kicks_narrowing', "WHERE `url` = '$url';");
+    //Setting up narrower
 
-    if (!is_array($specialSearch)) {
-        echo "ERORR\n\n";
-        goto a;
-    }
+    $specialSearch = $dataBase->grabResultsTable('kicks_narrowing', "WHERE `url` = '$url';");
 
     if($specialSearch[0]['minimum_match'] == 0 || empty($specialSearch[0]['minimum_match'])) {
         $minMatch = 1;
     } else {
         $minMatch = $specialSearch[0]['minimum_match'];
     }
+
     $specialSearch = $specialSearch[0]['category'];
 
     echo "Searching: " . $value['url'] . "\n";
 
     echo "Narrowing: $specialSearch\n";
 
+    //Fetching sitemap
 
+    $robots = new robots($url, $id);
 
-    $robotsCrawler = new robots($value['url'], $id);
+    $urlSitemap = $robots->getSiteMapURL();
 
-    $urlSitemap = $robotsCrawler->getSiteMapURL();
-
-    $loadCache = new loadCache($urlSitemap);
-
-    $siteMap = new sitemap($urlSitemap, $value['url']);
+    $siteMap = new sitemap($urlSitemap, $id);
 
     $siteMapFetched = $siteMap->crawlSiteMap($id);
 
-    $updateLinks = new check(array(), $siteMapFetched, $value['url']);
+    //Starting scrapper 
 
-    $updateLinks->compareLines();
+    foreach($siteMapFetched as $link) {
+        if (narrowSearch($link, $specialSearch, $minMatch)) {
+            $content = new webpageScraper($link, $id);
 
-    if ($loadCache->checkCache()) {
+            $found = $content->scrapeAndSearch($baseURL);
 
-        echo "Cache found for: " . $value['url'] . "\n";
+            $found = array_map('array_filter', $found);
+            $found = array_filter($found);
 
-        $cached = $loadCache->loadCache();
+            if(!empty($found))
+            {
+                foreach($found as $product) {
 
-        $cached = array_filter($cached);
+                    $content = new webpageScraper($product["link"]);
 
-        $diff = array_diff(array_map('trim', $siteMapFetched), array_map('trim', $cached));
+                    $estimatedPrice = $content->getPrice();
 
-        echo "Cache diff is " . count($diff) . " for: " . $value['url'] . "\n";
+                    $webhook = new webhookDiscord($product["link"], $estimatedPrice, $product["filter"], $baseURL);
+                    $webhook->sendHook();
+                    $webhook->sendHookSite($baseURL);
 
-        if (count($diff) > 0) {
-            
-            $found = array();
-            foreach ($diff as $link) {
-                $writeCache = new createCache($urlSitemap);
-                $writeCache->writeCache($link);
-                if (narrowSearch($link, $specialSearch, $minMatch)) {
-                    $content = new webpageScraper($link, $id);
-
-                    $scrapped = $content->webpageScraper();
-
-                    $searchFilter = new filterSearch($value['url']);
-
-
-                    if ($searchFilter->searchFilterHard($link, $scrapped)) {
-                        $found[] = $link;
-                    }
                 }
             }
 
-            if (count($found) > 0) {
-                $webHook = new webhookDiscord($found);
-
-                $webHook->sendHook();
-                $webHook->sendHookSite($baseURL);
-                print_r($found);
-            }
-        } else {
-            echo "Skipping search for: " . $value['url'] . "\n";
-        }
-    } else {
-
-        echo "Cache not found for: " . $value['url'] . ". Writting cache....\n";
-
-        $writeCache = new createCache($urlSitemap);
-
-        $writeCache->writeCache($siteMapFetched);
-
-        $found = array();
-
-        echo "Searching: " . $value['url'] . "\n";
-
-        foreach ($siteMapFetched as $link) {
-            if (narrowSearch($link, $specialSearch, $minMatch)) {
-                $content = new webpageScraper($link, $id);
-
-                $scrapped = $content->webpageScraper();
-
-                $searchFilter = new filterSearch($value['url']);
-
-                if ($searchFilter->searchFilterHard($link, $scrapped)) {
-
-                    $found[] = $link;
-                }
-            }
-        }
-
-        if (count($found) > 0) {
-            $webHook = new webhookDiscord($found);
-
-            $webHook->sendHook();
-            $webHook->sendHookSite($baseURL);
-
-            print_r($found);
-            $notify = new notifications;
-            foreach ($found as $item) {
-                echo $item;
-            }
         }
     }
 
@@ -178,9 +109,5 @@ foreach ($results as $key => $value) {
 
     $time = $endTime - $startTime;
     $dataBase->updateTable('kicks_indexes', "`parse_time`='$time' WHERE `id` = '$id';");
-    a:
-}
 
-echo "\n\nJob finished on:  \n";
-echo date('l jS \of F Y h:i:s A');
-echo "\n\n++++++++++++++++++++++++++++++++++\n";
+}

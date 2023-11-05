@@ -178,11 +178,9 @@ foreach ($results as $key => $value) {
         if (narrowSearch($link, $specialSearch, $minMatch)) {
             $content = new webpageScraper($link);
 
-            $found[] = $content->scrapeAndSearch($value['url'], $link);
+            $found[] = $content->scrapeAndSearch($value['url']);
         }
     }
-
-    var_dump($found);
 
     if (count($found) > 0) {
         $found = array_map('array_filter', $found);

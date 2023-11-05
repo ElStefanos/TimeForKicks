@@ -19,7 +19,7 @@ class network
     private string $response;
     private string $responseTime;
     private string $size;
-    private array $info;
+    public array $info;
     private $curl;
     public function __construct($target, $indexId = '')
     {

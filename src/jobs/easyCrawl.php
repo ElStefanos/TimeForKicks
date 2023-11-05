@@ -121,7 +121,7 @@ foreach ($results as $key => $value) {
             $scrapper = new webpageScraper($link);
             $priceGuess = $scrapper->getPrice();
             if(empty($priceGuess)) $priceGuess = "N/A";
-            $webHook = new webhookDiscord($found, $priceGuess);
+            $webHook = new webhookDiscord($link, $priceGuess, "New product!", $baseUrl);
             $webHook->sendHook();
             $webHook->sendHookSite($baseUrl);
         }

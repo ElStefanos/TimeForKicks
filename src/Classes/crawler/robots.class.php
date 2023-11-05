@@ -10,10 +10,9 @@ class robots
     protected $url;
     protected $sitemap;
     protected $code;
-    private $headers;
     private $id;
 
-    public function __construct($url, $id='')
+    public function __construct(string $url, string $id='')
     {   
 
         $this->url = $url.'/robots.txt';
@@ -30,7 +29,7 @@ class robots
         $this->rules = preg_grep('/[^\s]/',  $this->rules);
     }
     
-    public function checkSiteMap()
+    public function checkSiteMap() : int
     {
         foreach ($this->rules as $key => $value) {
             if (strpos($value, 'Sitemap:') !== false || strpos($value, 'sitemap:') !== false) {
@@ -41,14 +40,14 @@ class robots
                 $curl->curlTarget();
                 $this->code = $curl->getCode();
                 if($this->code > 0) {
-                    return $this->code;
+                    return (int) $this->code;
                 }
             }
         }
         return 0;
     }
 
-    public function getSiteMapURL()
+    public function getSiteMapURL() : string
     {
         foreach ($this->rules as $key => $value) {
             if (strpos($value, 'Sitemap:') !== false || strpos($value, 'sitemap:') !== false) {

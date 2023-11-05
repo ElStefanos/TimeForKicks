@@ -6,8 +6,6 @@ use DOMDocument;
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
 use network\network;
-use shopify\checkShopify;
-use filters\applyFilters;
 
 class sitemap
 {
@@ -17,10 +15,9 @@ class sitemap
     protected $paths;
     protected $doc;
     protected $links;
-    protected $headers;
     protected string $link;
 
-    public function __construct($url, $baseUrl)
+    public function __construct(string $url, string $baseUrl)
     {
         $this->url = $url;
         $this->baseUrl = $baseUrl;
@@ -29,7 +26,7 @@ class sitemap
     }
 
 
-    public function crawlSiteMap($id = '')
+    public function crawlSiteMap(string $id = '')
     {
         $network = new network($this->url);
 

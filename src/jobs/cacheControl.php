@@ -25,7 +25,7 @@ echo "Started cache control job....\n";
 echo date('l jS \of F Y h:i:s A');
 echo "\n\nStarted cache control for hard sites....\n\n";
 
-cacheControl($hardSites, 3600);
+cacheControl($hardSites, 7200);
 
 echo "\nFinished cache control for hard sites....\n";
 
