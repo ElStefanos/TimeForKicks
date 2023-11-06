@@ -46,7 +46,7 @@ class webhookDiscord
     {
         $embed = array(
             "title" => $this->title,
-            "description" => "**Price: " . $this->price . "**",
+            "description" => "**Price: " . $this->price . "**\n\nProduct link: ". $link,
             "url" => $link,
             "color" => 2990733,
             "author" => array(
@@ -138,6 +138,7 @@ class webhookDiscord
                 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($this->payload, JSON_PRETTY_PRINT));
                 $response = curl_exec($ch);
+                return;
             }
         }
     }

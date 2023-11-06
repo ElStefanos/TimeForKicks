@@ -125,14 +125,6 @@ foreach ($results as $key => $value) {
             $webHook->sendHook();
             $webHook->sendHookSite($baseUrl);
         }
-
-        if (is_array($found)) {
-            $notify = new notifications;
-            foreach ($found as $item) {
-                echo $item;
-
-            }
-        }
     }
     $endTime = microtime(true);
 
