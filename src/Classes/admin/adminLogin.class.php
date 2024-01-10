@@ -24,8 +24,8 @@ class adminLogin
     {
         $config = new dataBaseConfig;
         $this->params = $config->getDetails();
-        $this->mysqli = new mysqli($this->params['hostname'], $this->params['username'], $this->params['password'], $this->params['database']);
-        $this->password = $password;
+        #$this->mysqli = new mysqli($this->params['hostname'], $this->params['username'], $this->params['password'], $this->params['database']);
+        #$this->password = $password;
         $this->email = $email;
         $this->username = "";
         $this->date = "";
