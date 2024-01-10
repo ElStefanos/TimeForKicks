@@ -14,9 +14,9 @@
 
         public function __construct()
         {
-            $this->config = new dataBaseConfig();
-            $this->params = $this->config->getDetails();
-            $this->mysqli = new mysqli($this->params['hostname'], $this->params['username'], $this->params['password'], $this->params['database']);
+            
+            #$this->params = $this->config->getDetails();
+            #$this->mysqli = new mysqli($this->params['hostname'], $this->params['username'], $this->params['password'], $this->params['database']);
         }
 
         public function grabResultsTable($table, $term = '')
